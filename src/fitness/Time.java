@@ -26,9 +26,9 @@ public enum Time {
      Gets the value for hour
      @return int hour to access the private instance variable
      */
-    public int getHour(){
+   /* public int getHour(){
         return hour;
-    }
+    }*/
 
     /**
      Gets the value for minute
