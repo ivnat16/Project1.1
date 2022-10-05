@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"fitness","l":"Date"},{"p":"fitness","l":"FitnessClass"},{"p":"fitness","l":"GymManager"},{"p":"fitness","l":"Location"},{"p":"fitness","l":"Member"},{"p":"fitness","l":"MemberDatabase"},{"p":"fitness","l":"RunProject1"},{"p":"fitness","l":"Time"}];updateSearchResults();

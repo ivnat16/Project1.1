@@ -1,0 +1,76 @@
+
+                   Java class/method name being tested: Date class, isValid() method
+Test Case #1
+Requirement: The method shall not accept any date  with the year before 1900.
+Test description and Input Data: • Create an instance of Date with valid day and month but with the year < 1900.
+                                 • test data: “11/21/800”
+Expected result/output: false
+
+Test Case #2
+Requirement: Number of days in February for a non leap year shall be 28.
+Test description and Input Data:• Create an instance of Date with the  month = 2, day > 28, and the year is  a non-leap year
+                                • test data: “2/29/2018
+Expected result/output: false
+
+Test Case #3
+Requirement: Number of days in February for a leap year shall be 29.
+Test description and Input Data: • Create an instance of Date with the  month = 2, day = 29, and the year is  a leap year
+                                 • test data: “2/29/2018
+Expected result/output: true
+
+Test Case #4
+Requirement: Valid range for the month shall be 1-12
+Test description and Input Data: • Create an instance of Date with valid day and year but with month > 13
+                                 • test data: “13/21/1999”
+Expected result/output: false
+
+
+
+
+
+
+                   Java class/method name being tested: Member Class: CompareTo() method
+
+Test Case #1
+Requirement: Last name of m1 alphabetically less than m2
+             m1.compareTo(m2)
+Test description and Input Data: • Create an instance of member1 and member 2 with last name of m1 alphabetically before last name of m2
+                                 • test data:
+                                 Member m1 = new Member("Leah", "Ranavat",d1,e1,PISCATAWAY);
+
+                                 Member m2 = new Member("Tanvi", "Thigle",d2,e2, BRIDGEWATER);
+Expected result/output: -1
+
+
+
+Test Case #2
+Requirement: Same members but different order of calling the method
+             m2.compareTo(m1)
+Test description and Input Data: Since order is different, will return positive one instead of negative
+Expected result/output: 1
+
+
+
+Test Case #3
+Requirement: If last names are the same, compare to the first name
+Test description and Input Data: • Create an instance of member2 and member 3 with last name of m1 alphabetically before last name of m2
+                                 • test data:
+                                 Member m2 = new Member("Tanvi", "Thigle",d2,e2, BRIDGEWATER);
+                                 Member m3 = new Member("Mugdha","Thigle",d2,e2,FRANKLIN);
+Expected result/output: 1
+
+
+
+Test Case #4
+Requirement: If the last name and first names are same should return 0
+Test description and Input Data: If the last name and first names are same should return 0
+                                 • test data:
+                                 Member m2 = new Member("Tanvi", "Thigle",d2,e2, BRIDGEWATER);
+                                 Member m4 = new Member("Tanvi","Thigle",d2,e2,FRANKLIN);
+Expected result/output: 0
+
+
+
+
+
+
