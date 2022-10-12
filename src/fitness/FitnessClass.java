@@ -199,7 +199,7 @@ public class FitnessClass {
      */
     @Override
     public String toString(){
-        return type + " " + instructor + " " + time + " " + location;
+        return type + " - " + instructor + ", " + time.getHour() + ", " + location;
         //ADD LIST OF PARTICIPANTS HERE
     }
 }

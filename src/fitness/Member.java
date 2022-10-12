@@ -65,6 +65,8 @@ public class Member implements Comparable<Member>{
         return this.location;
     }
 
+    public String whoAmI() { return "I am a Member."; }
+
     /**
      Prints all the information of the member
      @return String member
@@ -105,6 +107,11 @@ public class Member implements Comparable<Member>{
         if(this.lname.compareTo(member.getLname())==0 && this.fname.compareTo(member.getFname()) ==0)
             return 0;
         return -1;
+    }
+
+    public double membershipFee() {
+        //How to do annually and per month???
+        return 29.99 + (39.99*3);
     }
 
     /**

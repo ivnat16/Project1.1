@@ -94,9 +94,9 @@ public class Date implements Comparable<Date>{
     public Date(String date) {
         String [] newDate = date.split("/");
         Date d = new Date(Integer.parseInt(newDate[2]), Integer.parseInt(newDate[1]), Integer.parseInt(newDate[0]));
-        this.year = d.getYear();
-        this.day = d.getDay();
-        this.month = d.getMonth();
+       // this.year = d.getYear();
+       // this.day = d.getDay();
+       // this.month = d.getMonth();
     }
 
     /**
@@ -199,6 +199,17 @@ public class Date implements Comparable<Date>{
         else return false;
     }
 
+    public Date threeMonthsDate(){
+        Calendar rightNow = Calendar.getInstance();
+        Calendar threemonths = rightNow;
+        rightNow.add(Calendar.MONTH,4);
+        day = threemonths.get(Calendar.DAY_OF_MONTH);
+        month = rightNow.get(Calendar.MONTH);
+        year = rightNow.get(Calendar.YEAR) ;
+        Date temp = new Date(year,day,month);
+        return temp;
+    }
+
     /**
      Prints date
      @param date the date needed to be printed
@@ -207,6 +218,11 @@ public class Date implements Comparable<Date>{
     public String print(Date date){
         return date.getMonth()+ "/" + date.getDay() + "/" + date.getYear();
     }
+
+   /* public String toString{
+        return (this.month + "/" + this.day + "/" + this.year);
+    }*/
+
 
     /** Testbed main to exercise the isValid method. ...*/
     public static void main (String [] args) {

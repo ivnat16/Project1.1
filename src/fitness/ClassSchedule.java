@@ -8,9 +8,9 @@ public class ClassSchedule {
     private FitnessClass [] classes;
     private int numClasses;
 
-    public ClassSchedule(FitnessClass [] classes, int numClasses){
-        this.classes = classes;
-        this.numClasses = numClasses;
+    public ClassSchedule(){
+        this.classes = null;
+        this.numClasses = 0;
     }
     public int getNumClasses(){
         return numClasses;
@@ -63,14 +63,13 @@ public class ClassSchedule {
         if(classes[numClasses-1]!=null){
             grow();
         }
-        if(classExists(fitnessClass)==-1){
             for(int i=0; i<numClasses; i++){
                 if(classes[i]==null){
                     classes[i] = fitnessClass;
                     return true;
                 }
             }
-        }
+
 
         return false;
     }
@@ -79,22 +78,20 @@ public class ClassSchedule {
 
     /**
      Prints the schedule of all fitness classes
-
+*/
     public void printSchedule(){
-        System .out.println("\n-Fitness class-");
-        System .out.println("PRINT FITNESS CLASS STRING REPRESENTATION");
-        if(FitnessClass.participants.get(0) != null){
-            System.out.println("\t ** participants **");
-        }
-        for(int i =0; i< participants.size(); i++){
-            if(participants.get(i)!=null){
-                System.out.println("\t\t" + participants.get(i).getFname() + " " + participants.get(i).getLname() + ", " + "DOB:" + participants.get(i).getDob().print(participants.get(i).getDob()) + ", " + "Membership expires " + participants.get(i).getExpire().print(participants.get(i).getExpire()) + ", " + "Location: " + participants.get(i).getLocation() + ", " + participants.get(i).getLocation().getZipcode() + ", " + participants.get(i).getLocation().getCounty().toUpperCase());
+        //System .out.println("\n-Fitness class-");
+        System .out.println("-Fitness classes loaded-");
+        for(int i =0; i< numClasses; i++){
+            if(classes[i]!=null){
+                System.out.println(classes[i]);
+
             }
         }
+        System .out.println("-end of class list.");
 
-        System.out.println("\n");
     }
-     */
+
 
     private static String [] createString (StringTokenizer st){
         String[] temp = new String[4];
@@ -104,8 +101,8 @@ public class ClassSchedule {
         return temp;
     }
 
-    private static FitnessClass createMember(String [] temp){
-        FitnessClass tempFit = new FitnessClass(temp[0], Instructor.valueOf(temp[1].toUpperCase()),Time.valueOf(temp[2].toUpperCase()) ,Location.valueOf(temp[3].toUpperCase()));
+    private static FitnessClass createFitnessClass(String [] temp){
+        FitnessClass tempFit = new FitnessClass(temp[0].toUpperCase(), Instructor.valueOf(temp[1].toUpperCase()),Time.valueOf(temp[2].toUpperCase()) ,Location.valueOf(temp[3].toUpperCase()));
         return tempFit;
     }
 
@@ -114,15 +111,16 @@ public class ClassSchedule {
         String command;
         StringTokenizer st;
         String [] temp;
+        ClassSchedule check = new ClassSchedule();
         while(inFile.hasNext()){
-            System.out.println("Goes in here!");
             command = inFile.nextLine();
             st = new StringTokenizer(command);
             temp = createString(st);
-            FitnessClass newFit = createMember(temp);
-            System.out.println(newFit);
+            FitnessClass newFit = createFitnessClass(temp);
+            check.add(newFit);
+           // System.out.println(newFit);
         }
-
+    check.printSchedule();
     }
 
 
