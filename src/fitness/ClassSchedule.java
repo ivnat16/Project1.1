@@ -33,6 +33,11 @@ public class ClassSchedule {
         }
         return -1;
     }
+
+
+
+
+
     /**
      Grow, a growable container with an initial capacity of 4
      Grows the container by 4 automatically when full
@@ -120,7 +125,19 @@ public class ClassSchedule {
             check.add(newFit);
            // System.out.println(newFit);
         }
-    check.printSchedule();
+        //check.printSchedule();
+        Premium t = new Premium("Tanvi", "Thigle",new Date("3/16/2002"), new Date("12/28/2027"),Location.FRANKLIN);
+        Member a = new Member("Neeraj", "Pise",new Date("8/31/1999"), new Date("12/28/2023"),Location.BRIDGEWATER);
+
+        System.out.println(check.classes[0]);
+        check.classes[0].checkIn(t);
+        check.classes[0].guestCheckIn(t);
+        check.classes[0].checkIn(a);
+        System.out.println(check.classes[0]);
+        check.classes[0].doneClass(a);
+        check.classes[0].guestDoneClass(t);
+        System.out.println(check.classes[0]);
+        System.out.print(t.GUEST_PASS);
     }
 
 

@@ -94,9 +94,9 @@ public class Date implements Comparable<Date>{
     public Date(String date) {
         String [] newDate = date.split("/");
         Date d = new Date(Integer.parseInt(newDate[2]), Integer.parseInt(newDate[1]), Integer.parseInt(newDate[0]));
-       // this.year = d.getYear();
-       // this.day = d.getDay();
-       // this.month = d.getMonth();
+         this.year = d.getYear();
+        this.day = d.getDay();
+        this.month = d.getMonth();
     }
 
     /**

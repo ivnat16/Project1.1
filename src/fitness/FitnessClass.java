@@ -75,47 +75,30 @@ public class FitnessClass {
         return false;
     }
 
-    /**
-     Interprets command for fitness class
-     @param st to separate the tokens in the input
-     @return String [] to easily access different tokens
-     */
-    public static String [] createFitness(StringTokenizer st){
-        String[] temp = new String[5];
-        for(int i = 0; st.hasMoreTokens(); i++){
-            temp[i] = st.nextToken();
-        }
-        return temp;
-    }
-
-    /**
-     Creates member for Fitness class
-     @param temp String from above with Member information
-     @param data to enter into database
-     @return Member to create a list of participants
-     */
-    public static Member createFitMember(String [] temp, MemberDatabase data){
-        Member fitnessMember = new Member(temp[1],temp[2], new Date(temp[3]),new Date("12/12/2028"),Location.NOVALUE);
-        Member addData = data.PublicFindMember(fitnessMember);
-        if(addData != null) {
-            fitnessMember = new Member(temp[1], temp[2], new Date(temp[3]), addData.getExpire(), addData.getLocation());
-        }
-        return fitnessMember;
-    }
 
     /**
      Checks in participants if they meet all the criteria
      @param member member that needs to check in
-     @param fit_class the class to be added too
      @return true if member checked in, false if not
      */
-    public boolean checkIn(Member member, String fit_class){
+    public boolean checkIn(Member member){
             if(member.getDob().dobIsValid(member.getDob())){
                 if(member.getExpire().expIsValid(member.getExpire())){
-                    //put in schedule?
-                    if(alreadyCheckedIn(member) == false){
-                        return addParticipant(member);
+                    if(member instanceof Member && member.getLocation() == this.location){
+                        System.out.println("In check in");
+                        if(alreadyCheckedIn(member) == false){
+                            return addParticipant(member);
+                        }
                     }
+                    else if(member instanceof Family || member instanceof Premium){
+                        if(alreadyCheckedIn(member) == false){
+                            return addParticipant(member);
+                        }
+                    }
+
+
+                    //put in schedule?
+
                 }
             }
         return false;
@@ -127,18 +110,44 @@ public class FitnessClass {
      @return true if member added in, false if not
      */
     public boolean addParticipant(Member member){
-            if( participants.get(0) == null ){
-                participants.set(0, member);
-                return true;
-            }
-            for( int i = 0; i < participants.size(); i++ ){
-                int j = i + 1;
-                if( participants.get(i) != null && participants.get(j) == null ){
-                    participants.add(j, member);
-                    return true;
-                }
-            }
 
+
+        return participants.add(member);
+    }
+
+    /**
+     Checks in guests if they meet all the criteria
+     @param member member that needs to check in
+     @return true if guest checked in, false if not
+     */
+    public boolean guestCheckIn(Member member){
+        if(member.getDob().dobIsValid(member.getDob())){
+            if(member.getExpire().expIsValid(member.getExpire())){
+                //put in schedule?
+                    return addGuest(member);
+            }
+        }
+        return false;
+    }
+
+    /**
+     Adds in guests in the respective list
+     @param member the member that needs to be added
+     @return true if guest added in, false if not
+     */
+    public boolean addGuest(Member member){
+        if(member instanceof Family && ((Family) member).GUEST_PASS > 0 && member.getLocation() == this.location){
+            guests.add(member);
+            int b = ((Premium) member).getGUEST_PASS();
+            ((Premium) member).setGUEST_PASS(b-1);
+             return true;
+        }
+        else if (member instanceof Premium && ((Premium) member).GUEST_PASS > 0 && member.getLocation() == this.location){
+            guests.add(member);
+            int a = ((Premium) member).getGUEST_PASS();
+            ((Premium) member).setGUEST_PASS(a-1);
+            return true;
+        }
         return false;
     }
 
@@ -149,7 +158,7 @@ public class FitnessClass {
      @return true if already checked in, false if not.
      */
     public boolean alreadyCheckedIn(Member member){
-            if(participants.get(0) == null){
+            if(participants == null){
                 return false;
             }
             for(int i =0; i< participants.size(); i++){
@@ -162,6 +171,7 @@ public class FitnessClass {
 
         return false;
     }
+
 
     /**
      Removes member from participants list
@@ -182,16 +192,22 @@ public class FitnessClass {
     }
 
     /**
-     Checks if there is a time conflict for participants to attend classes
-     @param fitnessClass the class the member is in
-     @return true if there is a time conflict, false if there is not.
+     Removes member from participants list
+     @param member the member to be dropped
+     @return true if drop is successful, false if not.
      */
-    public boolean timeConflict(FitnessClass fitnessClass){ // USE TIME!! In class schedule?
-            if(fitnessClass.getClassTime()==this.time){
-                return true;
+    public boolean guestDoneClass(Member member){ //exists in fit_class array then remove
+
+            for (int i = 0; i < guests.size(); i++) {
+                if (member.equals(guests.get(i))) {
+                    guests.remove(i);
+                    return true;
+                }
             }
+
         return false;
     }
+
 
     /**
      Prints all the information of the member
@@ -199,7 +215,43 @@ public class FitnessClass {
      */
     @Override
     public String toString(){
-        return type + " - " + instructor + ", " + time.getHour() + ", " + location;
-        //ADD LIST OF PARTICIPANTS HERE
+        String std = type + " - " + instructor + ", " + time.getHour() + ", " + location;
+        String p = "\n Participants ";
+        String g = "\n Guests ";
+        //System.out.println("Participants");
+        for(int i=0; i< participants.size(); i++){
+            if(participants.get(i)!= null){
+               p += "\n" + participants.get(i);
+
+            }
+        }
+        for(int i=0; i< guests.size(); i++){
+            if(guests.get(i)!= null){
+                g += "\n" + guests.get(i);
+
+            }
+        }
+        String res = std;
+        if(participants.size()>0)
+            res += p;
+        if(guests.size()>0)
+            res += g;
+        return res;
+
     }
+
+    /*FitnessClass x = new FitnessClass(Pilates, KIM, MORNING, FRANKLIN);
+    FitnessClass y = new FitnessClass(Pilates, KIM, MORNING, FRANKLIN);
+
+    x.getTime()
+    y.getTime()
+
+    participantsX = x.getParticipants()
+    participantsY = y
+
+    for i in x.getParticipants{
+        if is in y.getParticipants {
+
+        }
+    }*/
 }

@@ -25,8 +25,17 @@ package fitness;
 
         @Override
         public double membershipFee() {
-            return (59.99*3);
+            return (59.99*11);
         }
 
+        @Override
+        public int getGUEST_PASS(){
+            return GUEST_PASS;
+        }
+
+       @Override
+        public void setGUEST_PASS(int guestPass){
+            this.GUEST_PASS = guestPass;
+        }
     }
 

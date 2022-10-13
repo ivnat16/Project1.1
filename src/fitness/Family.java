@@ -29,6 +29,14 @@ package fitness;
             return 29.99 + (59.99*3);
         }
 
+        public int getGUEST_PASS(){
+            return GUEST_PASS;
+        }
+
+        public void setGUEST_PASS(int guestPass){
+            this.GUEST_PASS = guestPass;
+        }
+
 
 
 
