@@ -34,6 +34,19 @@ public class ClassSchedule {
         return -1;
     }
 
+    /**
+     Checks if class exists at the Gym
+     @param fitnessClass to check with existing classes
+     @return boolean true if class does not exist, index value if it does
+     */
+    public FitnessClass [] timeConflict(FitnessClass fitnessClass){ // in class schedule?
+        FitnessClass [] temp = new FitnessClass[10];
+       for(int i =0; i< numClasses; i++){
+           if(classes[i].getClassTime() == fitnessClass.getClassTime() && !(classes[i].equals(fitnessClass)))
+               temp[i] = classes[i];
+       }
+       return temp;
+    }
 
 
 
@@ -127,17 +140,24 @@ public class ClassSchedule {
         }
         //check.printSchedule();
         Premium t = new Premium("Tanvi", "Thigle",new Date("3/16/2002"), new Date("12/28/2027"),Location.FRANKLIN);
-        Member a = new Member("Neeraj", "Pise",new Date("8/31/1999"), new Date("12/28/2023"),Location.BRIDGEWATER);
+        Member a = new Member("Leah", "Ranavat",new Date("8/31/1999"), new Date("12/28/2023"),Location.BRIDGEWATER);
 
         System.out.println(check.classes[0]);
         check.classes[0].checkIn(t);
-        check.classes[0].guestCheckIn(t);
-        check.classes[0].checkIn(a);
         System.out.println(check.classes[0]);
-        check.classes[0].doneClass(a);
-        check.classes[0].guestDoneClass(t);
+        //check.classes[0].guestCheckIn(t);
+        check.classes[1].checkIn(t);
         System.out.println(check.classes[0]);
-        System.out.print(t.GUEST_PASS);
+        System.out.println(check.classes[3]);
+        System.out.println(check.classes[1]);
+
+
+
+//        System.out.println(check.classes[0]);
+//        check.classes[0].doneClass(a);
+//        check.classes[0].guestDoneClass(t);
+//        System.out.println(check.classes[0]);
+//        System.out.print(t.GUEST_PASS);
     }
 
 

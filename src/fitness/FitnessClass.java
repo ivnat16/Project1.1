@@ -84,15 +84,18 @@ public class FitnessClass {
     public boolean checkIn(Member member){
             if(member.getDob().dobIsValid(member.getDob())){
                 if(member.getExpire().expIsValid(member.getExpire())){
-                    if(member instanceof Member && member.getLocation() == this.location){
-                        System.out.println("In check in");
-                        if(alreadyCheckedIn(member) == false){
-                            return addParticipant(member);
+                    if(memberTimeConflict(member) < 0){
+
+                        if(member instanceof Member && member.getLocation() == this.location){
+                            System.out.println("In check in");
+                            if(alreadyCheckedIn(member) == false){
+                                return participants.add(member);
+                            }
                         }
-                    }
-                    else if(member instanceof Family || member instanceof Premium){
-                        if(alreadyCheckedIn(member) == false){
-                            return addParticipant(member);
+                        else if(member instanceof Family || member instanceof Premium){
+                            if(alreadyCheckedIn(member) == false){
+                                return participants.add(member);
+                            }
                         }
                     }
 
@@ -102,17 +105,6 @@ public class FitnessClass {
                 }
             }
         return false;
-    }
-
-    /**
-     Adds in participants in the respective class list
-     @param member the member that needs to be added
-     @return true if member added in, false if not
-     */
-    public boolean addParticipant(Member member){
-
-
-        return participants.add(member);
     }
 
     /**
@@ -170,6 +162,27 @@ public class FitnessClass {
             }
 
         return false;
+    }
+
+    /**
+     Checks if time conflict
+     @param member to check with existing classes
+     @return int true if class does not exist, index value if it does
+     */
+    public int memberTimeConflict(Member member){ // in class schedule?
+        ClassSchedule c = new ClassSchedule();
+       FitnessClass[] x =  c.timeConflict(this);
+       for(int i =0; i< x.length; i++){
+           if(x[i]!=null){
+               for(int j =0; j< x[i].participants.size(); j++){
+                   if(member.equals(x[i].participants.get(j))){
+                       return i;
+                   }
+               }
+           }
+
+       }
+       return -1;
     }
 
 
